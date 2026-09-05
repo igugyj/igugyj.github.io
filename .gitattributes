@@ -1,0 +1,2 @@
+# 忽略整个 architecture 目录及其所有子目录和文件
+architecture/** linguist-vendored=true
