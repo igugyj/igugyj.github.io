@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "GitHub Pages 静态重定向服务 — 构建部署流程",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1200,
+      600
+    ]
+  },
+  "lanes": [
+    {
+      "id": "dev",
+      "label": "开发者"
+    },
+    {
+      "id": "repo",
+      "label": "GitHub 仓库"
+    },
+    {
+      "id": "ci",
+      "label": "GitHub Actions"
+    },
+    {
+      "id": "pages",
+      "label": "GitHub Pages"
+    }
+  ],
+  "phases": [
+    {
+      "id": "edit",
+      "label": "编辑配置",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "build",
+      "label": "自动构建",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "deploy",
+      "label": "部署上线",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "edit_config",
+    "push_main",
+    "action_trigger",
+    "run_generate",
+    "deploy_ghpages",
+    "serve_redirect"
+  ],
+  "nodes": [
+    {
+      "id": "edit_config",
+      "lane": "dev",
+      "col": 0,
+      "type": "frontend",
+      "label": "编辑配置",
+      "sublabel": "redirects.json"
+    },
+    {
+      "id": "push_main",
+      "lane": "dev",
+      "col": 1,
+      "type": "frontend",
+      "label": "Push main",
+      "tag": "触发器"
+    },
+    {
+      "id": "action_trigger",
+      "lane": "repo",
+      "col": 2,
+      "type": "cloud",
+      "label": "Action 启动",
+      "sublabel": "deploy.yml"
+    },
+    {
+      "id": "run_generate",
+      "lane": "ci",
+      "col": 3,
+      "type": "backend",
+      "label": "构建 HTML",
+      "sublabel": "generate.py"
+    },
+    {
+      "id": "deploy_ghpages",
+      "lane": "repo",
+      "col": 4,
+      "type": "cloud",
+      "label": "部署 gh-pages",
+      "tag": "force_orphan"
+    },
+    {
+      "id": "serve_redirect",
+      "lane": "pages",
+      "col": 5,
+      "type": "external",
+      "label": "用户访问",
+      "sublabel": "0s 跳转"
+    }
+  ],
+  "edges": [
+    {
+      "from": "edit_config",
+      "to": "push_main",
+      "labelAt": [
+        167,
+        159
+      ]
+    },
+    {
+      "from": "push_main",
+      "to": "action_trigger",
+      "label": "webhook",
+      "variant": "emphasis",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        260,
+        167
+      ]
+    },
+    {
+      "from": "action_trigger",
+      "to": "run_generate",
+      "label": "checkout + setup"
+    },
+    {
+      "from": "run_generate",
+      "to": "deploy_ghpages",
+      "label": "dist/",
+      "variant": "emphasis",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        465,
+        291
+      ]
+    },
+    {
+      "from": "deploy_ghpages",
+      "to": "serve_redirect",
+      "label": "静态托管",
+      "variant": "dashed",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "核心流程",
+      "items": [
+        "编辑 JSON 配置文件",
+        "Push 触发 GitHub Action",
+        "Python 生成 HTML 文件",
+        "自动部署到 gh-pages"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "访问路径",
+      "items": [
+        "/ → 目标网站",
+        "/github → GitHub",
+        "/blog → 博客",
+        "/dev/gitee → Gitee"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "设计特点",
+      "items": [
+        "零依赖：JSON + Python",
+        "零服务器：GitHub Pages",
+        "零配置：push 即部署",
+        "零运维：免费额度"
+      ]
+    }
+  ]
+}
