@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="3; url=https://pg25-lsae.eu.org/">
+  <title>Redirecting... https://pg25-lsae.eu.org/</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cn-fontsource-xiaolai-sc-regular/font.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #FFF0F5;
+      overflow: hidden;
+      position: relative;
+      font-family: system-ui, sans-serif;
+    }
+
+    /* Kawaii 风格的背后大光晕 */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80vw;
+      height: 80vw;
+      max-width: 600px;
+      max-height: 600px;
+      background: radial-gradient(circle, rgba(244, 114, 182, 0.15) 0%, rgba(255, 240, 245, 0) 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .anim {
+      width: clamp(160px, 35vh, 280px);
+      height: auto;
+      margin-bottom: 1.5rem;
+      /* 保留正片叠底，增加圆角 */
+      mix-blend-mode: multiply;
+      border-radius: 20px;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .text-container {
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.7s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .title {
+      margin: 0;
+      font-family: "Xiaolai SC", system-ui, sans-serif;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 700;
+      background: linear-gradient(120deg, #a78bfa, #f472b6, #60a5fa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 10px rgba(167, 139, 250, 0.2);
+    }
+
+    /* 将网址改成 a 标签，并去掉默认样式 */
+    .url-link {
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      color: #8a7b8c;
+      font-family: "Xiaolai SC", system-ui, sans-serif;
+      letter-spacing: 0.5px;
+      max-width: 80vw;
+      word-break: break-all;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: all 0.2s ease;
+    }
+
+    .url-link:hover {
+      opacity: 1;
+      color: #f472b6;
+      text-decoration: underline;
+    }
+
+    .btn {
+      padding: 0.7em 2.2em;
+      border-radius: 999px;
+      background: linear-gradient(120deg, #a78bfa, #f472b6, #60a5fa);
+      color: #fff;
+      font-family: "Xiaolai SC", system-ui, sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(167, 139, 250, 0.35);
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05) translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 8px 22px rgba(167, 139, 250, 0.5);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <img class="anim" src="loading.gif" alt="Loading animation">
+
+  <div class="text-container">
+    <h1 class="title">Redirecting...</h1>
+    <!-- 网址变成可点击的链接 -->
+    <a class="url-link" href="https://pg25-lsae.eu.org/">https://pg25-lsae.eu.org/</a>
+  </div>
+
+  <a class="btn" href="https://pg25-lsae.eu.org/">Go now</a>
+
+  <script>
+    setTimeout(function () {
+      location.replace({{ target_js }}); }, {
+      { delay_ms }
+    });
+  </script>
+</body>
+
+</html>
