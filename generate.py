@@ -16,16 +16,17 @@ template = open(TEMPLATE_SRC, encoding='utf-8').read()
 if os.path.exists(out_dir):
     shutil.rmtree(out_dir)
 os.makedirs(out_dir, exist_ok=True)
+shutil.copy(ASSET_SRC, out_dir)  # one shared copy at dist root; pages reach it by relative path
 
 for route, target in config.items():
     clean = route.strip('/')
     target_dir = os.path.join(out_dir, clean)
     os.makedirs(target_dir, exist_ok=True)
-    shutil.copy(ASSET_SRC, target_dir)
+    asset_url = ('../' * (clean.count('/') + 1) + ASSET_NAME) if clean else ASSET_NAME
     page = (template
             .replace('{{delay}}', str(DELAY))
             .replace('{{delay_ms}}', str(DELAY * 1000))
-            .replace('{{asset}}', ASSET_NAME)
+            .replace('{{asset}}', asset_url)
             .replace('{{target_html}}', html.escape(target, quote=True))
             .replace('{{target_js}}', json.dumps(target)))
     with open(os.path.join(target_dir, 'index.html'), 'w', encoding='utf-8') as f:
